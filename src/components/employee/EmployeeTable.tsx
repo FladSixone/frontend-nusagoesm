@@ -9,6 +9,10 @@ import {
 
 import Badge from "../ui/badge/Badge";
 import Image from "next/image";
+import {
+  PencilIcon,
+  TrashBinIcon,
+} from "../../icons/index";
 
 interface Order {
   id: number;
@@ -37,55 +41,63 @@ const tableData: Order[] = [
   },
   email: "rusdiomaygot@gmail.com",
   phone: "082212345678",
-  address: "Bogor",
+  address: "Shlomo Ibn Gabirol St 68, Tel Aviv-Yafo, Israel",
   job: {
-    department: "IT",
-    position: "Front-End Programmer",
+    department: "Staff",
+    position: "HRD",
   },
   action: ["string"],
   },
 ];
 
-export default function BasicTableOne() {
+export default function Employee() {
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+    <div className="overflow-hidden rounded-xl border border-brand-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03] shadow-sm">
       <div className="max-w-full overflow-x-auto">
         <div className="min-w-[1102px]">
-          <Table>
+
+
+          <Table className="table-auto">
            
           {/* Table Header */}
           
-            <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+            <TableHeader className="border bg-gray-100 border-gray-100 dark:border-white/[0.05] dark:bg-white/[0.05]">
               <TableRow>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-4 font-semibold text-gray-500 text-start text-theme-sm dark:text-gray-400 uppercase"
                 >
-                  User
+                  Karyawan
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-4 font-semibold text-gray-500 text-start text-theme-sm dark:text-gray-400 uppercase"
                 >
-                  Project Name
+                  Email
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-4 font-semibold text-gray-500 text-start text-theme-sm dark:text-gray-400 uppercase"
                 >
-                  Team
+                  Telpon
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-4 font-semibold text-gray-500 text-start text-theme-sm dark:text-gray-400 uppercase"
                 >
-                  Status
+                  Alamat
                 </TableCell>
                 <TableCell
                   isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  className="px-5 py-4 font-semibold text-gray-500 text-start text-theme-sm dark:text-gray-400 uppercase"
                 >
-                  Budget
+                  Departemen & Posisi
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-4 font-semibold text-gray-500 text-start text-theme-sm dark:text-gray-400 uppercase"
+                >
+                  Action
                 </TableCell>
               </TableRow>
             </TableHeader>
@@ -106,19 +118,19 @@ export default function BasicTableOne() {
                         />
                       </div>
                       <div>
-                        <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                        <span className="block font-medium text-gray-800 dark:text-white/90">
                           {order.user.name}
                         </span>
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-5 py-4 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                     {order.email}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-5 py-4 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                     {order.phone}
                   </TableCell>
-                  <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                  <TableCell className="px-5 py-4 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                     {order.address}
                   </TableCell>
 
@@ -128,13 +140,20 @@ export default function BasicTableOne() {
                         <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
                           {order.job.department}
                         </span>
-                        <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
+                        <span className="block text-gray-500 text-theme-sm dark:text-gray-400">
                           {order.job.position}
                         </span>
                       </div>
                     </div>
                   </TableCell>
 
+                  <TableCell className="px-5 py-4">
+                    <div className="flex items-left justify-left gap-2">
+                    <button className=" text-gray-400 hover:text-gray-600 transition-colors"><PencilIcon className="h-auto w-auto" /></button>
+                    <button className=" text-gray-400 hover:text-red-600 transition-colors"><TrashBinIcon className="h-auto w-auto" /></button>
+                    </div>
+                  </TableCell>
+    
                 </TableRow>
               ))}
             </TableBody>

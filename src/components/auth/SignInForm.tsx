@@ -39,7 +39,7 @@ export default function SignInForm() {
               NusaGo EMS
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-              Enterprise Management System
+              Employee Management System
             </p>
           </div>
           
