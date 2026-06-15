@@ -1,5 +1,6 @@
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import BiodataInputs from "@/components/employee/form/add-employee/BiodataInput";
+import JobInputs from "@/components/employee/form/add-employee/JobInput";
 import { Metadata } from "next";
 import React from "react";
 
@@ -10,10 +11,13 @@ export const metadata: Metadata = {
 export default function EmployeeForm() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Biodata" />
+      <PageBreadcrumb pageTitle="Add Employee" />
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         <div className="space-y-6">
           <BiodataInputs />
+        </div>
+        <div>
+          <JobInputs />
         </div>
       </div>
     </div>

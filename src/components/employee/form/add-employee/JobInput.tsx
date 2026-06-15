@@ -1,30 +1,24 @@
 "use client";
+import React, { useState } from 'react';
+import ComponentCard from '../../../common/ComponentCard';
+import Label from '../Label';
+import Input from '../input/InputField';
 
-import dynamic from "next/dynamic";
-import { useState } from "react";
 
-// 1. Dynamically import to disable SSR
-const ReactSelect = dynamic(
-  () => import("react-select"),
-  { ssr: false }
-);
-
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
-
-export default function TypeableSelect() {
-  const [selected, setSelected] = useState(null);
+export default function JobInputs() {
 
   return (
-    <ReactSelect
-      isSearchable // Enables typing to filter options
-      isClearable   // Allows clearing the selection
-      options={options}
-      value={selected}
-      placeholder="Type to search..."
-    />
+    <ComponentCard title="Job">
+      <div className="space-y-6">
+        <div>
+          <Label>Department</Label>
+          <Input type="text" />
+        </div>
+        <div>
+          <Label>Position</Label>
+          <Input type="text" />
+        </div>
+      </div>
+    </ComponentCard>
   );
 }

@@ -26,7 +26,7 @@ export default function BiodataInputs() {
   };
   return (
     <>
-    <ComponentCard title="Default Inputs">
+    <ComponentCard title="Biodata">
       <div className="space-y-6">
         <div>
           <Label>Name</Label>
