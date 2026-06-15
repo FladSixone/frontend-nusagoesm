@@ -21,9 +21,10 @@ export default function SignInForm() {
           <div className="mb-5 sm:mb-8">
           <div className="flex flex-col items-center mb-2">
             <Image
+              className="rounded-lg"
               width={48}
               height={48}
-              src="./images/logo/logo-icon.svg"
+              src="/images/logo/nusalogo.png"
               alt="Logo"
             />
             </div>
@@ -31,7 +32,7 @@ export default function SignInForm() {
               NusaGo EMS
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-              Enterprise Management System
+              Employee Management System
             </p>
           </div>
           
@@ -52,7 +53,7 @@ export default function SignInForm() {
                   <Label>
                     Email <span className="text-error-500">*</span>{" "}
                   </Label>
-                  <Input placeholder="info@gmail.com" type="email" />
+                  <Input placeholder="Enter your email" type="email" />
                 </div>
                 <div>
                   <Label>
