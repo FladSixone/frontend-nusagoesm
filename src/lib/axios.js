@@ -1,12 +1,13 @@
-import Axios from "axios";
-import { headers } from "next/headers";
+import axios from "axios";
 
-const axios = Axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-    headers:{
-    "X-Resquested-With": "XMLHttpRequest"
-    },
-    withCredentials:true
-})
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL, // e.g. http://localhost:8000
+  withCredentials: true,       // Required: sends session cookies cross-origin
+  withXSRFToken: true,         // Required: Axios auto-reads XSRF-TOKEN cookie and sends it as X-XSRF-TOKEN header
+  headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+  },
+});
 
-export default axios;
+export default api;
