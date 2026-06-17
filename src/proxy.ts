@@ -9,7 +9,7 @@ import type { NextRequest } from "next/server";
  * Using the lightweight approach here — the real auth check happens in useUser().
  */
 
-const PROTECTED_PATHS = ["/employee"];
+const PROTECTED_PATHS = ["/employee/:path*", ];
 const PUBLIC_PATHS = ["/signin", "/reset-password"];
 
 export function proxy(request: NextRequest) {
@@ -22,7 +22,7 @@ export function proxy(request: NextRequest) {
   // "laravel_session" (check your Laravel config/session.php → 'cookie').
   const sessionCookie =
     request.cookies.get("access_token")?.value ||
-    request.cookies.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_NAME || "laravel_session");
+    request.cookies.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_NAME || "access_token");
 
   if (isProtected && !sessionCookie) {
     // No session cookie found — redirect to sign-in
