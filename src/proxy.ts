@@ -9,7 +9,7 @@ import type { NextRequest } from "next/server";
  * Using the lightweight approach here — the real auth check happens in useUser().
  */
 
-const PROTECTED_PATHS = ["/admin"];
+const PROTECTED_PATHS = ["/employee"];
 const PUBLIC_PATHS = ["/signin", "/reset-password"];
 
 export function proxy(request: NextRequest) {
@@ -33,7 +33,7 @@ export function proxy(request: NextRequest) {
 
   if (isPublic && sessionCookie) {
     // Already logged in — redirect away from auth pages
-    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();

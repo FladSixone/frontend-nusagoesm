@@ -1,21 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { loginRequest, logoutRequest, fetchUser, LoginCredentials, User } from "@/lib/auth";
 
-// The cache key for the authenticated user
 export const USER_QUERY_KEY = ["auth", "user"] as const;
 
-/**
- * Returns the currently authenticated user.
- * - `isLoading`: true on first load
- * - `data`: the User object, or undefined if not logged in
- * - `isError`: true if the user is not authenticated (401)
- */
 export function useUser() {
   return useQuery<User>({
     queryKey: USER_QUERY_KEY,
     queryFn: fetchUser,
-    retry: false,           // Don't retry on 401
+    retry: false,             // Don't retry on 401
     staleTime: 1000 * 60 * 5, // Consider user data fresh for 5 minutes
   });
 }
@@ -58,9 +51,8 @@ export function useLogout() {
   return useMutation<void, Error, void>({
     mutationFn: logoutRequest,
     onSuccess: () => {
-      // Remove the cached user so isAuthenticated becomes false immediately
-      queryClient.setQueryData(USER_QUERY_KEY, null);
-      queryClient.clear();
+      // ✅ Only remove auth-related queries, not the entire cache
+      queryClient.removeQueries({ queryKey: USER_QUERY_KEY });
       router.push("/signin");
     },
   });

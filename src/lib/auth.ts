@@ -20,7 +20,7 @@ export interface LoginCredentials {
  */
 export async function loginRequest(credentials: LoginCredentials): Promise<void> {
   await api.get("/sanctum/csrf-cookie");
-  await api.post("/login", credentials);
+  await api.post("/api/login", credentials);
 }
 
 /**
