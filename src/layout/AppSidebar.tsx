@@ -31,7 +31,7 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }], //TODO: CHANGE DASHBOARD PATH 
+    path: "/dashboard"
   },
   {
     icon: <EmployeeIcon />,
