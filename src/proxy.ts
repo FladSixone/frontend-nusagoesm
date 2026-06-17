@@ -9,7 +9,7 @@ import type { NextRequest } from "next/server";
  * Using the lightweight approach here — the real auth check happens in useUser().
  */
 
-const PROTECTED_PATHS = ["/employee/:path*", ];
+const PROTECTED_PATHS = ["/dashboard/:path*", ];
 const PUBLIC_PATHS = ["/signin", "/reset-password"];
 
 export function proxy(request: NextRequest) {
