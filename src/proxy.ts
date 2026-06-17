@@ -21,7 +21,7 @@ export function proxy(request: NextRequest) {
   // Laravel Sanctum uses a session cookie — its name is typically
   // "laravel_session" (check your Laravel config/session.php → 'cookie').
   const sessionCookie =
-    request.cookies.get("laravel_session") ||
+    request.cookies.get("access_token")?.value ||
     request.cookies.get(process.env.NEXT_PUBLIC_SESSION_COOKIE_NAME || "laravel_session");
 
   if (isProtected && !sessionCookie) {

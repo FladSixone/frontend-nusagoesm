@@ -1,48 +1,49 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { loginRequest, logoutRequest, fetchUser, LoginCredentials, User } from "@/lib/auth";
+import Cookies from "js-cookie";
 
 export const USER_QUERY_KEY = ["auth", "user"] as const;
 
+/**
+ * Fetches the authenticated user from GET /api/user.
+ * The axios interceptor automatically attaches the Bearer token from localStorage.
+ * Returns undefined if no token exists or if the token is invalid (401).
+ */
 export function useUser() {
   return useQuery<User>({
     queryKey: USER_QUERY_KEY,
     queryFn: fetchUser,
-    retry: false,             // Don't retry on 401
-    staleTime: 1000 * 60 * 5, // Consider user data fresh for 5 minutes
+    retry: false,
+    staleTime: 1000 * 60 * 5,
+    // Don't even attempt the request if there's no token in localStorage
+    enabled: typeof window !== "undefined" && !!localStorage.getItem("access_token"),
   });
 }
 
 /**
- * Returns a mutation for logging in.
- * On success, invalidates the user query so the app re-fetches the user
- * and redirects to the dashboard.
- *
- * Usage:
- *   const { mutate: login, isPending, error } = useLogin();
- *   login({ email, password });
+ * Login mutation.
+ * On success: stores the token, sets the user in cache, redirects to dashboard.
+ * On failure: the error is available as `error` from the returned mutation object.
  */
 export function useLogin() {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  return useMutation<void, Error, LoginCredentials>({
+  return useMutation<ReturnType<typeof loginRequest> extends Promise<infer T> ? T : never, Error, LoginCredentials>({
     mutationFn: loginRequest,
-    onSuccess: async () => {
-      // Refetch the user after successful login
-      await queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY });
+    onSuccess: (data) => {
+      // Laravel returned the user in the login response — set it directly,
+      // no need for a separate GET /api/user call
+      queryClient.setQueryData(USER_QUERY_KEY, data.user);
       router.push("/admin/dashboard");
     },
   });
 }
 
 /**
- * Returns a mutation for logging out.
- * On success, clears the user from the query cache and redirects to /signin.
- *
- * Usage:
- *   const { mutate: logout } = useLogout();
- *   logout();
+ * Logout mutation.
+ * On success: removes the token, clears the cache, redirects to /signin.
  */
 export function useLogout() {
   const queryClient = useQueryClient();
@@ -51,18 +52,15 @@ export function useLogout() {
   return useMutation<void, Error, void>({
     mutationFn: logoutRequest,
     onSuccess: () => {
-      // ✅ Only remove auth-related queries, not the entire cache
-      queryClient.removeQueries({ queryKey: USER_QUERY_KEY });
+      queryClient.clear();
       router.push("/signin");
     },
   });
 }
 
-/**
- * Convenience hook: returns whether the user is authenticated.
- * Useful for guards in layouts or middleware.
- */
 export function useIsAuthenticated() {
   const { data, isLoading } = useUser();
   return { isAuthenticated: !!data, isLoading };
 }
+
+//Cookies.set("access_token", response.data.access_token, { expires: 1 });''
