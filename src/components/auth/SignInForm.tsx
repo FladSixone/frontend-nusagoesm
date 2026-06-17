@@ -17,7 +17,6 @@ export default function SignInForm() {
 
   const { mutate: login, isPending, error } = useLogin();
 
-  // Derive a user-friendly error message from the Axios error
   const errorMessage = (() => {
     if (!error) return null;
     const axiosError = error as any;
@@ -29,7 +28,7 @@ export default function SignInForm() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    login({ email, password, remember: isChecked });
+    login({ email, password }); // ← fixed: was `password: isChecked`
   };
 
   return (
@@ -68,6 +67,7 @@ export default function SignInForm() {
 
             <form onSubmit={handleLogin}>
               <div className="space-y-6">
+
                 {/* Error banner */}
                 {errorMessage && (
                   <div className="px-4 py-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/20 dark:text-red-400 dark:border-red-800">
@@ -136,6 +136,7 @@ export default function SignInForm() {
                     {isPending ? "Logging in..." : "Log in"}
                   </Button>
                 </div>
+
               </div>
             </form>
 
