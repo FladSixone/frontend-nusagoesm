@@ -41,7 +41,7 @@ export default function SignInForm() {
                 className="rounded-lg"
                 width={48}
                 height={48}
-                src="/images/logo/nusalogo.png"
+                src="/images/brand/nusago.png"
                 alt="Logo"
               />
             </div>
