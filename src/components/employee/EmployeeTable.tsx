@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { useMemo, useState } from "react";
 import { Search, SlidersHorizontal, Plus} from "lucide-react";
@@ -17,6 +16,7 @@ import {
   PencilIcon,
   TrashBinIcon,
 } from "../../icons/index";
+import { useRouter } from "next/navigation";
 
 interface Order {
   id: number;
@@ -34,8 +34,6 @@ interface Order {
 
 const PAGE_SIZE = 5;
 const TOTAL_EMPLOYEE_DATA = 42; //from API
-
-
 
 // Define the table data using the interface
 
@@ -107,8 +105,11 @@ const EMPLOYEE_DATA: Order[] = [
   },
 ];
 
+
 export default function Employee() {
-    const [query, setQuery] = useState("");
+	const router = useRouter()
+
+  const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
 
   const totalPages = Math.ceil(TOTAL_EMPLOYEE_DATA / PAGE_SIZE);
@@ -126,6 +127,7 @@ export default function Employee() {
 
   const rangeStart = (page - 1) * PAGE_SIZE + 1;
   const rangeEnd = Math.min(page * PAGE_SIZE, TOTAL_EMPLOYEE_DATA);
+  
   return (
     <div className="overflow-hidden rounded-xl border border-brand-200 bg-white dark:border-brand-950 dark:bg-white/[0.03] shadow-sm">
 
@@ -135,7 +137,7 @@ export default function Employee() {
 
         {/* Toolbar */}
 
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 p-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 dark:border-white/[0.1] p-4">
         <div className="relative w-full max-w-sm">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" /> 
           <input
@@ -151,6 +153,7 @@ export default function Employee() {
           <button
             type="button"
             className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-3.5 py-2.5 text-sm font-medium text-white hover:bg-brand-700"
+            onClick={() => router.push('/dashboard/employee/add-employee')}
           >
             <Plus className="h-4 w-4" />
             New Employee
