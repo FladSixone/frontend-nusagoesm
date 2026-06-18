@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { useMemo, useState } from "react";
+import { Search, SlidersHorizontal, Plus} from "lucide-react";
 import {
   Table,
   TableBody,
@@ -28,9 +32,14 @@ interface Order {
   action: string[];
 }
 
+const PAGE_SIZE = 5;
+const TOTAL_EMPLOYEE_DATA = 42; //from API
+
+
+
 // Define the table data using the interface
 
-const tableData: Order[] = [
+const EMPLOYEE_DATA: Order[] = [
   {
   id: 1,
   user: {
@@ -47,12 +56,55 @@ const tableData: Order[] = [
 ];
 
 export default function Employee() {
+    const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
+
+  const totalPages = Math.ceil(TOTAL_EMPLOYEE_DATA / PAGE_SIZE);
+
+  const filtered = useMemo(() => {
+    if (!query.trim()) return EMPLOYEE_DATA;
+    const q = query.toLowerCase();
+    return EMPLOYEE_DATA.filter(
+      (e) =>
+        e.user.name.toLowerCase().includes(q) ||
+        e.email.toLowerCase().includes(q) ||
+        e.department.toLowerCase().includes(q)
+    );
+  }, [query]);
+
+  const rangeStart = (page - 1) * PAGE_SIZE + 1;
+  const rangeEnd = Math.min(page * PAGE_SIZE, TOTAL_EMPLOYEE_DATA);
   return (
-    <div className="overflow-hidden rounded-xl border border-brand-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03] shadow-sm">
+    <div className="overflow-hidden rounded-xl border border-brand-200 bg-white dark:border-brand-950 dark:bg-white/[0.03] shadow-sm">
+
       <div className="max-w-full overflow-x-auto"></div>
       <div className="max-w-full overflow-x-auto">
         <div className="min-w-[1102px]">
 
+        {/* Toolbar */}
+
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 p-4">
+        <div className="relative w-full max-w-sm">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" /> 
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search employees by name, email, or department..."
+            className="w-full rounded-lg border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03] py-2.5 pl-9 pr-3 text-sm text-gray-700 placeholder:text-gray-400 focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-100"
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-3.5 py-2.5 text-sm font-medium text-white hover:bg-brand-700"
+          >
+            <Plus className="h-4 w-4" />
+            New Employee
+          </button>
+        </div>
+      </div>
 
           <Table className="table-auto">
            
@@ -108,7 +160,7 @@ export default function Employee() {
             {/* Table Body */}
             
             <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-              {tableData.map((order) => (
+              {filtered.map((order) => (
                 <TableRow key={order.id}>
                   <TableCell className="px-5 py-4 sm:px-6 text-start">
                     <div className="flex items-center gap-3">
@@ -153,6 +205,14 @@ export default function Employee() {
     
                 </TableRow>
               ))}
+
+              {filtered.length === 0 && (
+              <tr>
+                <td colSpan={6} className="px-4 py-10 text-center text-sm text-gray-400">
+                  No employees match your search.
+                </td>
+              </tr>
+            )}
             </TableBody>
           </Table>
         </div>
