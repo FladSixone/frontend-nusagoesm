@@ -7,7 +7,7 @@ import StatisticsChart from "@/components/ecommerce/StatisticsChart";
 import RecentOrders from "@/components/ecommerce/RecentOrders";
 import DemographicCard from "@/components/ecommerce/DemographicCard";
 import EmployeeTable from "@/components/employee/EmployeeTable";
-import EmployeeTable2 from "@/components/employee/EmployeeTable2";
+
 
 export const metadata: Metadata = {
   title:
