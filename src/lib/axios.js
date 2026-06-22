@@ -12,7 +12,7 @@ api.interceptors.request.use((config) => {
   const token =
     typeof window !== "undefined" ? localStorage.getItem("access_token") : null;
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`; // ← Sanctum reads this
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });

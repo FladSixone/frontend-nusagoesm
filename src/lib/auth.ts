@@ -77,9 +77,13 @@ export async function registerRequest(credentials: RegisterCredentials): Promise
 }
 
 export async function logoutRequest(): Promise<LogoutResponse> {
+  try{
   const response = await api.post<LogoutResponse>("/api/logout");
   clearToken();
   return response.data;
+  } catch {
+    return { message: "Logout berhasil" };
+  }
 }
 
 export async function fetchUser(): Promise<User> {

@@ -5,6 +5,7 @@ import {
   registerRequest,
   logoutRequest,
   fetchUser,
+  clearToken,
   LoginCredentials,
   RegisterCredentials,
   AuthResponse,
@@ -100,14 +101,13 @@ export function useLogout() {
   return useMutation<LogoutResponse, Error, void>({
     mutationFn: logoutRequest,
     onSettled: () => {
-      // Always clear cache and redirect — even on network error.
-      // The token is already removed from localStorage by logoutRequest.
+      // Clear AFTER the request has fired (success or fail)
+      clearToken();
       queryClient.clear();
       router.push("/signin");
     },
   });
 }
-
 // ─── useIsAuthenticated ───────────────────────────────────────────────────────
 
 /**
