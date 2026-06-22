@@ -40,7 +40,7 @@ export interface LogoutResponse {
 
 // ─── Token Helpers ───────────────────────────────────────────────────────────
 
-const TOKEN_KEY = "token";
+const TOKEN_KEY = "access_token";
 const AUTH_FLAG = "is_authenticated"; // presence flag for middleware only
 
 export function saveToken(token: string): void {
