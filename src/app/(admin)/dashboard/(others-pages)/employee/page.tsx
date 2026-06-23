@@ -14,7 +14,6 @@ export default function EmployeeTable() {
     <div>
       <PageBreadcrumb pageTitle="Employee List" />
           <EmployeeList />
-          <EmployeeTable2 />
     </div>
   );
 }
