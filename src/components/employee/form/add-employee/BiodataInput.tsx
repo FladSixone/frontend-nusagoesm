@@ -25,8 +25,12 @@ export default function BiodataInputs() {
     validateEmail(value);
   };
   return (
-    <>
-    <ComponentCard title="Biodata">
+<div className="overflow-hidden rounded-xl border border-brand-200 bg-white dark:border-brand-950 dark:bg-white/[0.03] shadow-sm">
+  <div className="max-w-full overflow-x-auto">
+    <div className="min-w-[1102px] ">
+
+      <div className='px-6 py-5'>
+      <div className='grid grid-cols-1 gap-6 xl:grid-cols-2 xl:grid-row-2 '>
       <div className="space-y-6">
         <div>
           <Label>Name</Label>
@@ -51,8 +55,25 @@ export default function BiodataInputs() {
           <Input type="text" placeholder="081234567890" />
         </div>
 
+      </div>
+      <div className='space-y-6'>
+
         <div>
-          <Label>Description</Label>
+          <Label>Department</Label>
+          <Input type="text" />
+        </div>
+        <div>
+          <Label>Position</Label>
+          <Input type="text" />
+        </div>
+
+      </div>
+
+      </div>
+      <div className='space-y-6'>
+
+        <div>
+          <Label>Address</Label>
           <TextArea
             value={address}
             onChange={(value) => setAddress(value)}
@@ -61,8 +82,33 @@ export default function BiodataInputs() {
         </div>
         
       </div>
-    </ComponentCard>
-    </>
+
+</div>
+      <div className="flex items-right justify-end border-t border-gray-200 dark:border-white/[0.05] px-5 py-4 text-sm ">
+        <div>
+          <button
+            type='button'
+            onClick={() => ("")}
+            className="inline-flex items-center gap-2 rounded-lg px-8 py-2.5 mx-4 text-sm font-medium text-gray-700 dark:text-gray-400 hover:bg-gray-100"
+          >
+            Cancel
+          </button>
+        </div>
+        <div>
+          <button
+              type="button"
+              onClick={() => ("")}
+              className="inline-flex items-center gap-2 rounded-lg bg-brand-600 px-8 py-2.5 mx-4 text-sm font-medium text-white hover:bg-brand-700"
+            >
+              Submit
+            </button>
+        </div>
+      </div>
+</div>
+</div>
+</div>
+
+
     );
   }
 
