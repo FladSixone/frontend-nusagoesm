@@ -11,14 +11,13 @@ export const metadata: Metadata = {
 export default function EmployeeForm() {
   return (
     <div>
-      <PageBreadcrumb pageTitle="Add Employee" />
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+      <PageBreadcrumb pageTitle="Add New Employee" />
+      <div>
+      <div>
         <div className="space-y-6">
           <BiodataInputs />
         </div>
-        <div>
-          <JobInputs />
-        </div>
+      </div>
       </div>
     </div>
   );
