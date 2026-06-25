@@ -229,20 +229,21 @@ const AppSidebar: React.FC = () => {
         <Link href="/">
           {isExpanded || isHovered || isMobileOpen ? (
             <>
+            <div className="grid grid-flow-col gap-x-4">
               <Image
-                className="dark:hidden"
-                src="/images/logo/logo.svg"
+                className=" row-span-3"
+                src="/images/logo/logo_nusago.svg"
                 alt="Logo"
-                width={150}
-                height={40}
+                width={45}
+                height={45}
               />
-              <Image
-                className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
-                alt="Logo"
-                width={150}
-                height={40}
-              />
+                <div className="col-span-2 text-xl dark:text-white m  ">
+                  NusaGo
+                </div>
+                <div className="col-span-2 row-span-2 text-xs text-gray-500">
+                  Employee Management System
+                </div>
+              </div>
             </>
           ) : (
             <Image

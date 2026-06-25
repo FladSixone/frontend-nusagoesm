@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 const PROTECTED_PATHS = ["/dashboard"];
 const PUBLIC_PATHS = ["/signin", "/reset-password"];
 
-export function middleware(request: NextRequest) {         // ← must be "middleware"
+export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isProtected = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
