@@ -28,7 +28,7 @@ export default function SignInForm() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    login({ email, password }); // ← fixed: was `password: isChecked`
+    login({ email, password }); 
   };
 
   return (
@@ -41,7 +41,7 @@ export default function SignInForm() {
                 className="rounded-lg"
                 width={48}
                 height={48}
-                src="/images/brand/nusago.png"
+                src="/images/logo/logo_nusago.svg"
                 alt="Logo"
               />
             </div>
